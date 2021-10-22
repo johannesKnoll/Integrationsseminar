@@ -16,9 +16,9 @@
 \input{content/00_LaTeX/miscellaneous/grammar}
 
 % -- Allgemeine Informationen zur Arbeit
-\newcommand{\titel}{Beispieltitel, welcher am Besten über zwei Zeilen verläuft}
-\newcommand{\titelheader}{Titel welcher im Header auftaucht}
-\newcommand{\arbeit}{Projektarbeit 1 (T1\_1000)}
+\newcommand{\titel}{Technische Umsetzung einer Blockchain}
+\newcommand{\titelheader}{Technische Umsetzung einer Blockchain}
+\newcommand{\arbeit}{Seminararbeit Integrationsseminar}
 
 % -- Persönliche Angaben und DHBW
 \newcommand{\vorname}{Johannes}
@@ -29,12 +29,12 @@
 \newcommand{\studienjahr}{2019}										% Datum in dem Format yyyy angeben
 \newcommand{\abschluss}{Bachelor of Science}
 \newcommand{\dhbwStandort}{Mannheim}					
-\newcommand{\betreuerDhbw}{DH-Vorname DH-Nachname}
+\newcommand{\betreuerDhbw}{Alexander Lütke}
 
 % -- Angaben zum Zeitraum und der Abgabe
-\newcommand{\abgabeOrt}{Musterort}						
-\newcommand{\abgabeDatum}{2020-09-08} 								% Datum in dem Format yyyy-mm-dd angeben
-\newcommand{\bearbeitungszeitraumBeginn}{2020-03-24} 				% Datum in dem Format yyyy-mm-dd angeben
+\newcommand{\abgabeOrt}{Mannheim}						
+\newcommand{\abgabeDatum}{2021-11-04} 								% Datum in dem Format yyyy-mm-dd angeben
+\newcommand{\bearbeitungszeitraumBeginn}{2021-10-14} 				% Datum in dem Format yyyy-mm-dd angeben
 \newcommand{\bearbeitungszeitraumEnde}{2020-09-08} 					% Datum in dem Format yyyy-mm-dd angeben
 
 % -- Angaben zu der Ausbildungsfirma
@@ -82,11 +82,11 @@
     \include{content/02_declaration/declaration}
     
     % -- Einbinden des Sperrvermerks
-    \include{content/03_confidentialityStatement/confidentialityStatement}
+    %\include{content/03_confidentialityStatement/confidentialityStatement}
     
     % -- Einbinden des Abstracts
-    \include{content/04_abstract/abstract-de}
-    \include{content/04_abstract/abstract-en}
+    % \include{content/04_abstract/abstract-de}
+    % \include{content/04_abstract/abstract-en}
     
     % -- Inhaltsverzeichnis
     \singlespacing													% Einfacher Zeilenabstand
@@ -140,12 +140,15 @@
 	   
 	\ifthenelse{\not\boolean{abgabeVersion}\and\boolean{anleitungDrucken}}							% Beispielkapitel werden eingebunden
 	{
-		\include{content/00_LaTeX/exampleProject/01_einleitung}
-		\include{content/00_LaTeX/exampleProject/02_abbildungen}
-		\include{content/00_LaTeX/exampleProject/03_formatText}
-		\include{content/00_LaTeX/exampleProject/04_mathematische-formeln}
-		\include{content/00_LaTeX/exampleProject/05_quellcode}
-		\include{content/00_LaTeX/exampleProject/06_literaturHinweis}
+		\include{content/06_chapter/01_Einleitung}
+		\include{content/06_chapter/02_Grundlagen}
+		\include{content/06_chapter/03_Aufbau_Blockchain}
+		\include{content/06_chapter/04_Hinzufügen_Blöcke}
+		% \include{content/00_LaTeX/exampleProject/02_abbildungen}
+		% \include{content/00_LaTeX/exampleProject/03_formatText}
+		% \include{content/00_LaTeX/exampleProject/04_mathematische-formeln}
+		% \include{content/00_LaTeX/exampleProject/05_quellcode}
+		% \include{content/00_LaTeX/exampleProject/06_literaturHinweis}
 	}
 	{}
 	

@@ -1,0 +1,78 @@
+\chapter{Grundlagen}
+
+Um den technischen Aufbau und die dahinterliegenden Konzepte zu verstehen und in den Zusammenhang einer Blockchain einordnen zu können, wird im folgenden Kapitel auf einige Grundlagen eingegangen, die für den weiteren Verlauf dieser Seminararbeit unabdingbar sind.
+
+\section{Hash-Funktion}\label{sec:hash-funktion}
+Eine Hash-Funktion ist eine Funktion, die eine willkürlich lange Zeichenfolge entgegennimmt und eine Ausgabe erzeugt, die eine festgelegte Länge besitzt \footnote{\parencite[vgl.][S. 159f]{Damgard.1999}}. Ändert sich ein Zeichen des Eingabewertes, wird ein völlig unterschiedlicher Ausgabewert zurückgegeben. Dabei muss eine solche Hash-Funktion einige Eigenschaften erfüllen:
+
+\begin{itemize}
+    \item Kollisionsresistenz: Es muss nahezu unmöglich sein, zwei Eingabewerte $a$ und $b$ zu finden, die unter Verwendung derselben Hash-Funktion $H(x)$ den gleichen Ausgabewert $H(a) = y$ und $H(b) = y$ erzeugen \footnote{\parencite[vgl.][S. 3]{Raikwar.2019}}.
+    \item Einwegfunktion: Für einen generierten Ausgabewert $y$ muss es nahezu unmöglich sein, einen Eingabewert $a$ zu finden, der die Gleichung $H(a) = y$ erfüllt. Ferner muss es nahezu unmöglich sein, für einen gegebenen Eingabewert $a$ und einem daraus generierten Ausgabewert $y = H(a)$ einen zweiten Eingabewert $b$ zu finden, der den Ausgabewert $y = H(b)$ erzeugt \footnote{\parencite[vgl.][S. 3]{Raikwar.2019}}.
+\end{itemize}
+
+Solche Hash-Funktionen werden im Zusammenhang einer Blockchain dazu benutzt, um das kryptografische Rätsel beim Proof of Work von Bitcoin zu lösen, oder die privaten und öffentlichen Schlüssel der Verschlüsselung zu verwenden \footnote{\parencite[vgl.][S. 4]{Raikwar.2019}}. Wie diese Verschlüsselung genau funktioniert, wird in der nächsten Sektion erklärt.
+
+\section{Verschlüsselung}\label{sec:verschluesselung}
+Die Verschlüsselung, die bei einer Blockchain, beziehungsweise bei Bitcoin, zugrunde liegt ist die asymmetrische Verschlüsselung. Bei dieser Art von Verschlüsselung existieren zwei verschiedene Schlüssel: der öffentliche und der private Schlüssel \footnote{\parencite[vgl.]{entwickler.de.NaN}}. Jedoch wird diese Art von Verschlüsselung nicht verwendet, um eine Transaktion oder einen Block innerhalb der Blockchain zu verschlüsseln, sondern zu signieren \footnote{\parencite[vgl.][S. 11]{Raikwar.2019}}. Wie genau diese Signierung funktioniert, kann mit dem folgenden Bild veranschaulicht werden:
+
+\begin{figure}[h]
+    \begin{centering}
+        \includegraphics[width=0.7\linewidth]{Signatur_Signer.png}
+        \caption[Ablauf Signieren]{Ablauf Signieren \footnotemark}
+        \label{fig:ablauf-signieren}
+    \end{centering}
+\end{figure}
+\footnotetext{\parencite[vgl.][S. 11]{Raikwar.2019}}
+
+Der Ersteller (Person A) eines Blocks oder einer Transaktion generiert ein Schlüsselpaar mit einem privaten und einem öffentlichen Schlüssel. Als erstes hasht Person A seine Transaktion und verschlüsselt diese mit seinem privaten Schlüssel. Diese signiert er mit der Signatur und versendet die signierte Transaktion, die ebenfalls den öffentlichen Schlüssel beinhaltet, an das Netzwerk \footnote{\parencite[vgl.][]{entwickler.de.NaN}}
+
+\begin{figure}[h]
+    \begin{centering}
+        \includegraphics[width=1.0\linewidth]{Signatur_Verifier.png}
+        \caption[Ablauf Verifizieren]{Ablauf Verifizieren \footnotemark}
+        \label{fig:ablauf-verifizieren}
+    \end{centering}
+\end{figure}
+\footnotetext{\parencite[vgl.][S. 11]{Raikwar.2019}}
+
+Anschließend muss verifiziert werden, ob die Transaktion während des Übermittelns nicht verändert wurde. Wie bereits in \vref*{sec:hash-funktion} erklärt wurde, muss sich beispielsweise nur der Betrag der Transaktion verändern, damit der Hash nicht mehr mit dem originalen Hash übereinstimmt. Dafür entnimmt ein Verifizierer (Person B) einerseits den öffentlichen Schlüssel aus der signierten Transaktion und entschlüsselt die digitale Signatur, um somit den ursprünglichen Hash zu erhalten. Andererseits hasht Person B die Transaktion mit derselben Hash-Funktion, die bereits von Person A verwendet wurde. Gleichzeitig kann auch sichergestellt werden, dass die signierte Transaktion wirklich von Person A stammt, da die digitale Signatur ansonsten nicht mit dem privaten Schlüssel entschlüsselt werden könnte. Sind die beiden Hash-Werte identisch, ist die Transaktion valide. Falls nicht, wird diese verworfen \footnote{\parencite[vgl.][]{entwickler.de.NaN}}.
+
+\section{Merkle-Baum}\label{sec:merkle-baum}
+Jeder Block in einer Blockchain besteht unter anderem aus mehreren neuen Transaktionen oder Dokumenten, die in einem separaten Teil innerhalb des Blocks gespeichert werden. Alle Informationen über die Daten werden dabei nicht direkt im Header des Blocks, sondern in einen sogenannten Merkle-Hash gespeichert \footnote{\parencite[vgl.][S. 137]{Bruhl.2017}}.
+
+Um einen solchen Hashwert zu erhalten, werden jeweils zwei benachbarte Kopien von den Daten auf der untersten Ebene des Merkle-Baums zusammengefasst und gehasht. In der nächsten Ebene werden erneut die benachbarten Hashes zu einem Hash zusammengefasst, bis sich der endgültige Merkle-Hash ergibt \footnote{\parencite[vgl.][S. 8f]{Fill.2020}}.
+
+Anhand von einem Merkle-Hash kann überprüft werden, ob es eine noch so kleine Änderung in einem der Dokumente gegeben hat, da eine Veränderung eines Dokuments unmittelbar eine Änderung aller damit verbundenen Hashes und des Merkle-Hash mit sich zieht. Möchte nun herausgefunden werden, ob ein Dokument nachträglich verändert wurde, müssen nicht alle Dokumente auf etwaige Veränderungen analysiert werden, sondern nur deren Hashes. Werden dabei die Hashes vor und nach der Änderung der Dokumente verglichen, kann festgestellt werden, in welchem Dokument die Änderungen vorgenommen wurden. Anhand von dieser Methode kann auch festgestellt werden, ob ein bestimmtes Dokument Teil der Merkle-Baums ist \footnote{\parencite[vgl.][S. 9ff]{Fill.2020}}.
+
+In der folgenden Abbildung ist der Aufbau eines solchen Merkle-Baums dargestellt:
+
+
+\begin{figure}[h]
+    \begin{centering}
+        \includegraphics[width=0.8\linewidth]{Merkle-Hash.png}
+        \caption[Merkle-Baum]{Merkle-Baum \footnotemark}
+        \label{fig:Merkle-Baum}
+    \end{centering}
+\end{figure}
+\footnotetext{\parencite[vgl.][S. 10]{Fill.2020}}
+
+
+\section{Aufbau eines Blocks}\label{sec:aufbau-eines-blocks}
+Wie bereits in \vref*{sec:merkle-baum} beschrieben, besteht ein Block in einer Blockchain unter anderem aus dem Merkle-Hash aller im Block befindlichen Dokumente. Ferner kann der Aufbau eines Blocks mit \vref{fig:block-aufbau} erläutert werden:
+
+
+\begin{figure}[h]
+    \begin{centering}
+        \includegraphics[width=0.4\linewidth]{Block_Aufbau.png}
+        \caption[Block Aufbau]{Block Aufbau \footnotemark}
+        \label{fig:block-aufbau}
+    \end{centering}
+\end{figure}
+\footnotetext{\parencite[vgl.][S. 4]{Raikwar.2019}}
+
+Als \textbf{Version} wird lediglich eine Version des aktuell eingesetzten Protokolls gemeint. Die Version ist für den Miner jedoch irrelevant.
+Damit die Blockchain als fortlaufende Kette gespeichert werden kann, muss der aktuelle Block stets auf seiner Vorgänger referenzieren. Dieser wird als Hash im Feld \textbf{Hash Block n-1} angegeben. Ohne diese Komponente könnte es keine Aneinanderreihung der Blöcke geben, somit können alle fortlaufenden Blöcke aufeinander aufbauen.
+In dem \textbf{Merkle-Root Hash} werden, wie bereits in \cref{sec:merkle-baum} erläutert, alle Transaktionen des Blocks in einem Hash gespeichert. In der \textbf{Timestamp} wird er Zeitpunkt angegeben, bei dem der Block erstellt wird. Dieser Wert ist in Sekunden ab dem 1.1.1970 gespeichert.
+In der \textbf{Difficulty} wird gespeichert, wie kleine der aus dem aktuell erzeugten Block sein muss. Um dies zu bewerkstelligen, muss ein Hash erzeugt werden, der eine gewissen Anzahl an führenden Nullen besitzt. Je kleiner die Difficulty ist, desto schwerer ist es auch, einen Hash zu finden, der das Kriterium erfüllt. 
+Da alle restlichen Komponenten des Blocks unveränderbar sind, bleibt nur noch die \textbf{Nonce}, um den Hash des Blocks zu beeinflussen. Sie muss von dem Miner festgelegt werden, dass der erzeugte Hash den Bedingungen der Difficulty gerecht wird \footnote{\parencite[vgl.][]{Vidrih.29.12.2018}}. Wie genau der Ablauf des Minings funktioniert, wird in Kapitel \cref{chp:mining} erläutert.
+

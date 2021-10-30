@@ -1,1 +1,17 @@
-\chapter*{Aufbau einer Blockchain}
+\chapter{Aufbau einer Blockchain}\label{chp:aufbau-einer-blockchain}
+
+\section{Allgemeiner Aufbau}\label{sec:allgemeiner-aufbau}
+Im Allgemeinen kann eine Blockchain mit einem Datenspeicher beschrieben werden, der gleichzeitig auf mehreren Computern der am Netzwerk Teilnehmenden gespeichert ist. Die Datenstrukturen, die auf den Rechnern gespeichert werden, sind zeitlich protokolliert und somit gut nachvollziehbar und schwer veränderlich \footnote{\parencite[vgl.][]{BaFin.25.10.2021}}.
+
+Durch die Verteilung der Daten auf mehrere Knoten des Netzwerks hat jeder Teilnehmer die gleiche Chance, Daten zu ergänzen oder Änderungen zu dokumentieren. Analog dazu werden Änderungen für jeden Teilnehmer ersichtlich und können im Falle von Manipulationen oder korrupten Daten sofort abgewiesen werden \footnote{\parencite[vgl][]{BaFin.25.10.2021}}.
+
+Die Tatsache, dass die Daten einer Blockchain verteilt auf das Netzwerk gespeichert sind, bringt einige Vorteile mit sich: Einerseits erhöht sich die Verfügbarkeit im Falle eines Ausfalls von einzelnen Knoten. Andererseits existiert keine zentrale Kontrollinstanz, die das Netzwerk überwacht oder Opfer eines Angriffs werden könnte \footnote{\parencite[vgl][]{BaFin.25.10.2021}}.
+
+Damit eine Blockchain fehlerfrei funktionieren kann, muss innerhalb des Netzwerks und zwischen den Teilnehmern ein Konsens-Algorithmus angewandt werden, der dazu beiträgt, dass alle Teilnehmer des Blockchain-Netzwerkes die gleichen Daten auf ihren Rechnern gespeichert haben. Der Konsens in einer Blockchain ist somit eine entscheidende Komponente innerhalb des Blockchain-Netzwerks, um die gespeicherten Daten in Form eines dezentralen Datenspeichers zu halten \footnote{\parencite[vgl.][S. 5]{Raikwar.2019}}. 
+
+\section{Proof-of-Work (PoW)}\label{sec:proof-of-work}
+Ein solcher Konsens-Algorithmus kann mithilfe von Proof-of-Work umgesetzt werden. Dieser läuft so ab, dass der Miner, also derjenige, der für die Erstellung eines neuen Blocks zuständig ist, eines Blocks die Nonce so auswählt, dass die Bedingung der Difficulty erfüllt ist. Wurde ein Wert gefunden, der dieses Kriterium erfüllt, kann der Block nicht mehr geändert werden, ohne eine erneute Nonce für diesen Block und alle zuvor gespeicherten Blöcke zu finden \footnote{\parencite[vgl.][S. 1546]{Bach.52018}}.
+
+
+Um einen Block hinzufügen zu können, muss ein Miner Transaktionen aus dem Transaction-Pool, das ist der Ort, an dem alle noch nicht getätigten Transaktionen gespeichert werden, entnehmen und in einem Block speichern. Anschließend wird ein Führer bestimmt, der durch das Lösen des kryptografischen Puzzles, also dem Finden einer geeigneten Nonce, ausgesucht wird. Hat er die Nonce gefunden, erstellt er den Block mit dem daraus erzeugten Hash und verteilt ihn im gesamten Blockchain-Netzwerk. Danach können die verbleibenden Teilnehmer der Erstellung des Blocks entweder implizit oder explizit zustimmen. Bei einer expliziten Zustimmung finden mehrere Abstimmungen statt, bei der die restlichen Teilnehmer beteiligt sind. Je nach Ausgang dieser Abstimmungen wurde der Konsens erreicht und der neu erstellte Block wird bei jedem Teilnehmer an die Blockchain angehöngt. Eine implizite Zustimmung erfolgt dann, wenn die Teilnehmer den Block akzeptieren, indem sie ihn an ihre Blockchain anhängen. Dieses Vorgehen der impliziten Zustimmung wird auch als ``Nakamoto-Konsens'' bezeichnet \footnote{\parencite[vgl.][S. 5f]{Raikwar.2019}}.
+

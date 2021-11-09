@@ -19,5 +19,8 @@ Jedoch muss dabei beachtet werden, dass die UTXOs nicht aufgeteilt werden könne
 
 In \vref{fig:transaktion} ist ein solches Vorgehen abgebildet. Bei der Transaktion 2 sendet die Absenderadresse 3 etwa 0.9882 BTC (1) an die Zieladresse 4. Da der UTXO 1 jedoch 0.9882 BTC beträgt und nur etwa 0.0099 BTC an die Zieladresse 4 gesendet werden soll, wird der Rest erneut als Output an die Absenderadresse 5 transferiert, welches dem Wallet entspricht, von dem der Input der Transaktion kam.
 
+\section{Ablauf einer Transaktion}\label{sec:ablauf-transaktion}
+Will nun eine Person Bitcoin versenden, wird eine Bitcoin-Adresse und ein privater sowie ein öffentlicher Schlüssel benötigt. Diese Komponenten bestehen aus einer Folge von Buchstaben und Zahlen. Im Gegensatz zu der Adresse und dem öffentlichen Schlüssel wird der private Schlüssel nicht preisgegeben \footnote{\parencite[vgl.][]{BTCACADEMY.08.03.2021b}}.
 
-\section{Locking Script und Unlocking Script}\label{sec:locking-unlocking}
+Nun wird die Transaktion mit den sämtlichen Daten aus \cref{sec:bestandteile-einer-transaktion} mit dem privaten Schlüssel signiert \footnote{\parencite[vgl.][]{BTCACADEMY.08.03.2021b}}. Der Empfänger dieser Transaktion muss den UTXO bei seiner nächsten Transaktion erneut signieren, um ihn bei dieser als Input zu verwenden. Bevor er diese Signatur nicht erstellt, ist der UTXO für den Empfänger noch gesperrt. Dies wird ``Locking Script'' genannt. Erst nachdem der Empfänger den Output signiert und als Input bei einer Transaktion angibt, wird dieser für ihn entsperrt (``Unlocking Script'') und zugänglich gemacht \footnote{\parencite[vgl.][]{entwickler.de.NaN}}. Anschließend kann die in der Transaktion hinterlegte Menge an die Zieladresse transferiert werden.
+

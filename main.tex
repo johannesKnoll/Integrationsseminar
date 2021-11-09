@@ -18,7 +18,7 @@
 % -- Allgemeine Informationen zur Arbeit
 \newcommand{\titel}{Technische Umsetzung einer Blockchain}
 \newcommand{\titelheader}{Technische Umsetzung einer Blockchain}
-\newcommand{\arbeit}{Seminararbeit Integrationsseminar}
+\newcommand{\arbeit}{Seminararbeit}
 
 % -- Persönliche Angaben und DHBW
 \newcommand{\vorname}{Johannes}
@@ -35,7 +35,7 @@
 \newcommand{\abgabeOrt}{Mannheim}						
 \newcommand{\abgabeDatum}{2021-11-04} 								% Datum in dem Format yyyy-mm-dd angeben
 \newcommand{\bearbeitungszeitraumBeginn}{2021-10-14} 				% Datum in dem Format yyyy-mm-dd angeben
-\newcommand{\bearbeitungszeitraumEnde}{2020-09-08} 					% Datum in dem Format yyyy-mm-dd angeben
+\newcommand{\bearbeitungszeitraumEnde}{2021-11-04} 					% Datum in dem Format yyyy-mm-dd angeben
 
 % -- Angaben zu der Ausbildungsfirma
 \newcommand{\firmaName}{SAP SE}
@@ -121,12 +121,12 @@
 	}
 
 	\listoffigures                         							% Erzeugen des Abbildungsverzeichnisses 
-	\listoftables                          							% Erzeugen des Tabellenverzeichnisses
-    \lstlistoflistings                     							% Erzeugen des Listenverzeichnisses
+	%\listoftables                          							% Erzeugen des Tabellenverzeichnisses
+    %\lstlistoflistings                     							% Erzeugen des Listenverzeichnisses
     \setcounter{savepage}{\value{page}}								% Römische Seitenzahl wird für später gespeichert
 
 	% -- Liste der zu erledigenden Punkte. Wichtig: Diese Liste muss vor der endgültigen Abgabe auskommentiert werden!
-	\listoftodos
+	%\listoftodos
     
     % -- Einbinden von den verschiedenen Kapiteln
     \cleardoublepage												% Beendet eine Seite
@@ -164,12 +164,12 @@
 	\printglossary[style=altlist,title=Glossar]						% Glossar wird erstellt
 
     % -- Einbinden von Anhängen
-    \begin{appendices}
-		\include{content/07_appendix/index}
-	\ifthenelse{\boolean{abgabeVersion}}
-	{}
-	{
-		\include{content/00_LaTeX/exampleProject/07_Appendix}
-	} 	
-    \end{appendices}
+    % \begin{appendices}
+	% 	\include{content/07_appendix/index}
+	% \ifthenelse{\boolean{abgabeVersion}}
+	% {}
+	% {
+	% 	\include{content/00_LaTeX/exampleProject/07_Appendix}
+	% } 	
+    % \end{appendices}
 \end{document}
